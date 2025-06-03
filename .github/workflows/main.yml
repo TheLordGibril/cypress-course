@@ -16,13 +16,13 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
             -X POST \
-            -d '{"content": "Oh putaing ! J'ai réussi les tests sur `${{ github.repository }}` (`${{ github.ref_name }}`) par `${{ github.actor }}` !"}' \
+            -d "{\"content\": \"✅ Oh putaing ! J'ai réussi les tests sur ${GITHUB_REPOSITORY} (${GITHUB_REF_NAME}) par ${GITHUB_ACTOR} !\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
-
+      
       - name: Envoyer message Discord si échec
         if: failure()
         run: |
           curl -H "Content-Type: application/json" \
             -X POST \
-            -d '{"content": "Oh merde ! Tests échoués sur `${{ github.repository }}` (`${{ github.ref_name }}`) par `${{ github.actor }}`... Vérifie les logs CI."}' \
+            -d "{\"content\": \"❌ Oh merde ! Tests échoués sur ${GITHUB_REPOSITORY} (${GITHUB_REF_NAME}) par ${GITHUB_ACTOR}... Vérifie les logs CI.\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
