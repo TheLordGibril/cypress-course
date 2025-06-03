@@ -10,3 +10,19 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
+
+      - name: Envoyer message Discord si succès
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content": "Oh putaing ! J'ai réussi les tests sur `${{ github.repository }}` (`${{ github.ref_name }}`) par `${{ github.actor }}` !"}' \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Envoyer message Discord si échec
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content": "Oh merde ! Tests échoués sur `${{ github.repository }}` (`${{ github.ref_name }}`) par `${{ github.actor }}`... Vérifie les logs CI."}' \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
