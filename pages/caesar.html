@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caesar Cypher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+    h2 {
+      font-size: 0.9rem;
+      color: gray;
+      margin-bottom: 1.5rem;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: none;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1rem;
+      color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Caesar Cypher</h1>
+    <h2>Vanilla JS</h2>
+    <input type="number" id="key" placeholder="Cypher key" value="6" />
+    <textarea id="text" rows="4" placeholder="Enter text here">Hello World!</textarea>
+    <button onclick="cypher()">Cypher</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function cypher() {
+      const key = parseInt(document.getElementById('key').value);
+      const text = document.getElementById('text').value;
+      const result = document.getElementById('result');
+
+      const shifted = text.split('').map(char => {
+        const code = char.charCodeAt(0);
+        if (char >= 'A' && char <= 'Z') {
+          return String.fromCharCode(((code - 65 + key) % 26) + 65);
+        } else if (char >= 'a' && char <= 'z') {
+          return String.fromCharCode(((code - 97 + key) % 26) + 97);
+        } else {
+          return char;
+        }
+      }).join('');
+
+      result.textContent = shifted;
+    }
+  </script>
+</body>
+</html>
