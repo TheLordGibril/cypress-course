@@ -83,4 +83,5 @@ describe('Lightbox', () => {
         cy.get('[data-cy="comments"] [data-cy="comment"]').should('have.length', 2)
     })
 
+
 })
